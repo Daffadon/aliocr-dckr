@@ -73,6 +73,14 @@ REVIEW_IMAGE=ghcr.io/<owner>/aliocr-dckr:latest PULL_IMAGE=1 ./review.sh
 REVIEW_IMAGE=ghcr.io/<owner>/aliocr-dckr:latest PULL_IMAGE=1 ./review.sh review --from main --to feature-branch -o /repo/review.json
 ```
 
+Same pull, plain `docker run` (no wrapper, no local build):
+
+```sh
+docker pull ghcr.io/<owner>/aliocr-dckr:latest
+docker run --rm --env-file .env -v ./:/repo -w /repo ghcr.io/<owner>/aliocr-dckr:latest review --format json --audience agent --output /repo/review.json
+docker run --rm --env-file .env -v ./:/repo -w /repo ghcr.io/<owner>/aliocr-dckr:1.12.9 review --from main --to feature-branch -o /repo/review.json
+```
+
 Bump the pinned version (workflow `env.OCR_VERSION` and `Dockerfile` default stay in sync):
 
 ```sh
