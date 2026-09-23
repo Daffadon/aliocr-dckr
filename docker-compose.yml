@@ -1,0 +1,14 @@
+services:
+  review:
+    build: .
+    image: aliocr-dckr:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /repo
+    env_file:
+      - .env
+    working_dir: /repo
+    # --output writes into /repo = ./ on host, so result is visible outside container
+    command: review --format json --audience agent --output /repo/review.json
+
